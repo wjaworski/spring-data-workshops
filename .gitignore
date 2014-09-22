@@ -1,0 +1,17 @@
+*.ipr
+*.iml
+*.iws
+*~
+*.versionsBackup
+.metadata/
+target/
+.idea/**
+**/target/
+**/.classpath
+**/.project
+**/.settings/
+.classpath
+.project
+.settings/
+build/
+test/logs/
