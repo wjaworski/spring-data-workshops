@@ -24,7 +24,7 @@ public class BookRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindBooksSortedByPrizeAsc() {
         // when
-        Iterable<Book> sortedBooksList = null; // TODO: find all books sorted by prize ascending
+        Iterable<Book> sortedBooksList = repository.findAll(new Sort(Sort.Direction.ASC, "prize"));
 
         // then
         Iterator<Book> iterator = sortedBooksList.iterator();
@@ -37,7 +37,7 @@ public class BookRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindBooksSecondPageOfThreeElementsPages() {
         // when
-        Page<Book> secondPageBooksList = null; // TODO: find all books with paging of 3 elements, get the second page
+        Page<Book> secondPageBooksList = repository.findAll(new PageRequest(1, 3));
 
         // then
         Iterator<Book> iterator = secondPageBooksList.iterator();
@@ -49,12 +49,12 @@ public class BookRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldThirdPageOfFourElementsPagesBeTheLastOne() {
         // when
-        Page<Book> thirdPageBooksList = null; // // TODO: find all books with paging of 4 elements, get the third page
+        Page<Book> thirdPageBooksList = repository.findAll(new PageRequest(2, 4));
         int pageSize = thirdPageBooksList.getNumberOfElements();
-        boolean isLast = false; // TODO: check if current page is last
-        boolean isFirst = false; // TODO: check if current page is first
-        boolean hasNext = false; // TODO: check if current page has next
-        boolean hasPrevious = false; // TODO: check if current page has previous
+        boolean isLast = thirdPageBooksList.isLast();
+        boolean isFirst = thirdPageBooksList.isFirst();
+        boolean hasNext = thirdPageBooksList.hasNext();
+        boolean hasPrevious = thirdPageBooksList.hasPrevious();
 
         // then
         assertThat(pageSize, equalTo(2));
@@ -67,8 +67,8 @@ public class BookRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindBooksFirstPageOfThreeElementsPagesSortedByTitleIgnoreCaseAsc() {
         // when
-        // TODO: find all books sorted by title ascending (not case sensitive) paged by 3 elements, get the first page
-        Page<Book> secondPageBooksList = null;
+        Page<Book> secondPageBooksList = repository.findAll(new PageRequest(0, 3, new Sort(new Sort.Order(
+            Sort.Direction.ASC, "title").ignoreCase())));
 
         // then
         Iterator<Book> iterator = secondPageBooksList.iterator();

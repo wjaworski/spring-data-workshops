@@ -24,7 +24,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindByCustomerName() {
         // when
-        Customer robertSmithCustomer = null; // TODO: get customer with name "Robert Smith"
+        Customer robertSmithCustomer = repository.findByName("Robert Smith");
 
         // then
         assertThat(robertSmithCustomer.getId(), equalTo(23514L));
@@ -34,7 +34,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
      public void shouldFindByStreetAndTheNameOfTheCityName() {
         // when
-        List<Customer> customers = null; // TODO: get customers living on street "123 Main St." in the city "Bellingham"
+        List<Customer> customers = repository.findByStreetAndCityName("123 Main St.", "Bellingham");
 
         // then
         assertThat(customers.size(), equalTo(2));
@@ -43,8 +43,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindCustomersByStateSortedByNameAsc() {
         // when
-        List<Customer> customers = null; // TODO: get customers living in state "CA",
-        // sorted by name ascending (use Sort parameter)
+        List<Customer> customers = repository.getByCityState("CA", new Sort("name"));
 
         // then
         assertThat(customers.size(), equalTo(3));
@@ -58,8 +57,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindCustomersByStateSortedByNameAscending2() {
         // when
-        List<Customer> customers = null; // TODO: get customers living in state "CA",
-        // sorted by name ascending (DO NOT use Sort parameter)
+        List<Customer> customers = repository.findByCityStateOrderByNameAsc("CA");
 
         // then
         assertThat(customers.size(), equalTo(3));
@@ -73,7 +71,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindByPhonePrefix() {
         // when
-        List<Customer> customers = null; // TODO: get customers with phone numbers starting "209-"
+        List<Customer> customers = repository.findByPhoneLike("209-%");
 
         // then
         assertThat(customers.size(), equalTo(2));
@@ -82,7 +80,7 @@ public class CustomerRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldCountByZip() {
         // when
-        Integer count = null; // TODO: count customers living in the city with zip code 98225
+        Integer count = repository.countByCityZip(98225L);
 
         // then
         assertThat(count, equalTo(3));

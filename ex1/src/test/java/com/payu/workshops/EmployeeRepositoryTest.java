@@ -26,7 +26,7 @@ public class EmployeeRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindEmployeeById() {
         // when
-        Employee employee = null; // TODO: find employee by id 1201
+        Employee employee = repository.findOne(1201L);
 
         //then
         assertThat(employee.getName(), equalTo("Jones Hoffer"));
@@ -35,7 +35,7 @@ public class EmployeeRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldFindGivenEmployees() {
         // when
-        Iterable<Employee> employees = null;// TODO: find employees with ids 1202, 1203
+        Iterable<Employee> employees = repository.findAll(Arrays.asList(1202L, 1203L));
 
         //then
         assertThat(employees, is(Matchers.<Employee>iterableWithSize(2)));
@@ -47,10 +47,10 @@ public class EmployeeRepositoryTest extends AbstractJpaTest {
     @Test
     public void shouldDeleteEmployeeById() {
         // when
-        // TODO: delete employee with id 1202
+        repository.delete(1202L);
 
         // then
-        long count = 0L; // TODO: count employees
+        long count = repository.count();
         assertThat(count, equalTo(2L));
     }
 
@@ -62,10 +62,10 @@ public class EmployeeRepositoryTest extends AbstractJpaTest {
             .withPosition("HR manager");
 
         // when
-        // TODO: save above employee
+        repository.save(newEmployee);
 
         // then
-        long count = 0L; // TODO: count employees
+        long count = repository.count();
         assertThat(count, equalTo(4L));
     }
 
@@ -79,10 +79,10 @@ public class EmployeeRepositoryTest extends AbstractJpaTest {
                 .withName("Fred Gray"));
 
         // when
-        // TODO: save above employees
+        repository.save(listOfEmployees);
 
         // then
-        long count = 0L; // TODO: count employees
+        long count = repository.count();
         assertThat(count, equalTo(5L));
     }
 }
